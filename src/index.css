@@ -1,0 +1,159 @@
+@import 'tailwindcss';
+
+/*
+ * "Masala Pop" theme: masala brown + saffron + haldi on a warm cream base,
+ * with deep masala-brown for dark sections. Leaf green is used sparingly.
+ */
+@theme {
+  --color-achaar: #2e0d0a; /* primary: same deep masala brown as the footer */
+  --color-achaar-dark: #140403;
+  --color-saffron: #f26b1d; /* orange accent */
+  --color-haldi: #ffb627; /* turmeric yellow */
+  --color-haldi-light: #ffe3a3;
+  --color-leaf: #3f7d3a;
+  --color-cream: #fff6ea;
+  --color-cream-dark: #f6e3c8;
+  --color-paper: #fffcf7;
+  --color-masala: #2e0d0a; /* deep brown for dark sections */
+  --color-ink: #2b1611;
+  --color-ink-soft: #73554c;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-deva: 'Yatra One', 'Fraunces', serif;
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0) rotate(var(--r, 0deg));
+    }
+    50% {
+      transform: translateY(-10px) rotate(var(--r, 0deg));
+    }
+  }
+}
+
+@utility btn {
+  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 py-3 font-bold transition duration-200 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream font-sans text-ink antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-ink;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-achaar;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .btn-primary {
+    @apply btn bg-achaar text-white shadow-[0_6px_0_0_var(--color-achaar-dark)] hover:-translate-y-0.5 hover:bg-[#4a1a12] hover:shadow-[0_8px_0_0_var(--color-achaar-dark)] active:translate-y-0.5 active:shadow-[0_2px_0_0_var(--color-achaar-dark)];
+  }
+  .btn-secondary {
+    @apply btn border-2 border-achaar bg-paper text-achaar hover:bg-achaar hover:text-cream;
+  }
+  .btn-haldi {
+    @apply btn bg-haldi text-ink shadow-[0_6px_0_0_#c98a0e] hover:-translate-y-0.5 hover:shadow-[0_8px_0_0_#c98a0e];
+  }
+  .btn-ghost {
+    @apply btn text-achaar hover:bg-achaar hover:text-cream;
+  }
+  .card {
+    @apply rounded-3xl border border-cream-dark bg-paper shadow-[0_1px_0_rgba(43,22,17,0.04),0_12px_30px_-18px_rgba(43,22,17,0.25)];
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-extrabold tracking-[0.18em] text-saffron uppercase;
+  }
+  .sticker {
+    @apply inline-flex items-center gap-1 rounded-full border-2 border-ink bg-haldi px-3 py-1 text-xs font-extrabold tracking-wide text-ink uppercase shadow-[3px_3px_0_0_var(--color-ink)];
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-bold text-ink;
+  }
+  .input {
+    @apply w-full rounded-2xl border-2 border-cream-dark bg-white px-4 py-2.5 text-base text-ink placeholder:text-ink-soft/60 focus:border-achaar focus:ring-4 focus:ring-achaar/10 focus:outline-none;
+  }
+  .input-error {
+    @apply border-red-600;
+  }
+  .field-error {
+    @apply mt-1 text-sm font-medium text-red-700;
+  }
+  /* Footer-style masala texture: deep brown with a fine reddish grain. Shared by the footer, buttons and brown surfaces. */
+  .bg-achaar,
+  .btn-primary,
+  .bg-masala,
+  .btn-secondary:hover,
+  .btn-ghost:hover,
+  .hover\:bg-achaar:hover {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.12 0 0 0 0 0.08 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+  }
+  /* Same masala colour + grain, painted inside text (hero "Swaad", logo wordmark). */
+  .text-masala {
+    background-color: var(--color-achaar);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.12 0 0 0 0 0.08 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 140px 140px;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding-right: 0.08em; /* keeps the italic overhang inside the painted area */
+  }
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.09 0 0 0 0 0.07 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .prose-policy h2 {
+    @apply mt-8 mb-2 text-xl font-semibold;
+  }
+  .prose-policy p,
+  .prose-policy li {
+    @apply leading-relaxed text-ink-soft;
+  }
+  .prose-policy ul {
+    @apply my-2 list-disc space-y-1 pl-5;
+  }
+}
