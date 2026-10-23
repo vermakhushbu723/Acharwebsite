@@ -4,6 +4,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
+    { "source": "/api/:path*", "destination": "https://acharbackend.vercel.app/api/:path*" },
+    { "source": "/sitemap.xml", "destination": "https://acharbackend.vercel.app/sitemap.xml" },
+    { "source": "/robots.txt", "destination": "https://acharbackend.vercel.app/robots.txt" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
